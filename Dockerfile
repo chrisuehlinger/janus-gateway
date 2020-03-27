@@ -21,10 +21,10 @@ RUN wget https://github.com/cisco/libsrtp/archive/v2.2.0.tar.gz && \
     ./configure --prefix=/usr --enable-openssl && \
     make -j10 shared_library && make install
 
-COPY . .
+WORKDIR /usr/src/janus
 
-RUN sh autogen.sh
-RUN ./configure \
+COPY . .
+RUN sh autogen.sh && ./configure \
     --enable-post-processing \
     --disable-websockets \
     --disable-data-channels \
@@ -34,11 +34,11 @@ RUN ./configure \
     --enable-plugin-echotest \
     --enable-plugin-videocall \
     --enable-plugin-videoroom \
-    --enable-all-handlers
-RUN make -j12
-RUN make install
-RUN make configs && ldconfig
-# RUN cp -R cert /etc/mycerts
+    --enable-all-handlers && \
+    make -j$(nproc) && \
+    make install && \
+    make configs && \
+    ldconfig
 # COPY nginx.conf /etc/nginx/nginx.conf
 
 # CMD nginx && janus
