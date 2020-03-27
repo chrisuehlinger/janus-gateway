@@ -19,8 +19,8 @@ trap "close_it_down" SIGTERM
 #     -p 7989:7989 \
 #     -p 20000-40000:20000-40000 \
 #     -v /mnt/secret/letsencrypt:/etc/letsencrypt \
-#     uehreka/chris-janus-docker
+#     shattered/janus
 
-docker run --network=host -v /mnt/secret/letsencrypt:/etc/letsencrypt uehreka/chris-janus-docker &
+docker run --network=host -v /mnt/secret/letsencrypt:/etc/letsencrypt shattered/janus &
 
 wait

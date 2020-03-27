@@ -83,4 +83,8 @@ Makefile.in
 
 .vscode
 
-Dockerfile
+Dockerfile*
+build.sh
+release.sh
+run.sh
+hosted-conf/
