@@ -39,7 +39,7 @@ RUN sh autogen.sh && ./configure \
     make install && \
     make configs && \
     ldconfig
-# COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# CMD nginx && janus
-CMD janus
+CMD nginx && janus
+# CMD janus
