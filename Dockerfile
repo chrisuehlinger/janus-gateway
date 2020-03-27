@@ -38,7 +38,8 @@ RUN ./configure \
 RUN make -j12
 RUN make install
 RUN make configs && ldconfig
-RUN cp -R cert /etc/mycerts
-COPY nginx.conf /etc/nginx/nginx.conf
+# RUN cp -R cert /etc/mycerts
+# COPY nginx.conf /etc/nginx/nginx.conf
 
-CMD nginx && janus
+# CMD nginx && janus
+CMD janus
