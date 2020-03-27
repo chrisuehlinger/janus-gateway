@@ -1,3 +1,5 @@
 #!/bin/bash
 
-time docker build -t uehreka/chris-janus-docker .
+cat Dockerfile | time docker build -t shattered/janus:x86 -f- .
+
+# cat Dockerfile.arm64 | time docker build -t shattered/janus:arm64 -f- .

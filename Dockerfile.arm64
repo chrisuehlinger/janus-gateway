@@ -1,9 +1,8 @@
-FROM ubuntu:18.04
+FROM arm64v8/ubuntu:18.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        ca-certificates libmicrohttpd-dev libjansson-dev \
+RUN apt-get update && apt-get install -y libmicrohttpd-dev libjansson-dev \
         libssl-dev libsrtp-dev libsofia-sip-ua-dev libglib2.0-dev \
         libopus-dev libogg-dev libcurl4-openssl-dev liblua5.3-dev \
         libconfig-dev pkg-config gengetopt libtool automake git wget doxygen graphviz \
@@ -15,33 +14,26 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     make -j$(nproc) && \
     make install && \
     cd .. && \
-    rm -fdr libnice && \
     wget https://github.com/cisco/libsrtp/archive/v2.2.0.tar.gz && \
     tar xfv v2.2.0.tar.gz && \
-    rm v2.2.0.tar.gz && \
     cd libsrtp-2.2.0 && \
     ./configure --prefix=/usr --enable-openssl && \
     make -j$(nproc) shared_library && \
     make install && \
     cd .. && \
-    rm -fdr libsrtp-2.2.0 && \
     git clone https://libwebsockets.org/repo/libwebsockets && \
     cd libwebsockets && \
     git checkout v2.4-stable && \
     mkdir build && \
     cd build && \
-    cmake -DLWS_MAX_SMP=1 -DLWS_IPV6=1 -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_C_FLAGS="-fpic" .. && \
+    cmake -DLWS_MAX_SMP=1 -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_C_FLAGS="-fpic" .. && \
     make -j$(nproc) && make install && \
     cd ../.. && \
-    rm -fdr libwebsockets && \
     git clone https://github.com/sctplab/usrsctp && \
     cd usrsctp && \
     ./bootstrap && \
     ./configure --prefix=/usr && \
-    make -j$(nproc) && make install &&\
-    cd .. && \
-    rm -fdr usrsctp && \
-    rm -rf /var/lib/apt/lists/*
+    make -j$(nproc) && make install
 
 WORKDIR /usr/src/janus
 
