@@ -14,3 +14,5 @@ docker run \
     -p 20000-40000:20000-40000 \
     -v /mnt/secret/letsencrypt:/etc/letsencrypt \
     uehreka/chris-janus-docker
+
+# docker run --network=host -v /mnt/secret/letsencrypt:/etc/letsencrypt uehreka/chris-janus-docker
