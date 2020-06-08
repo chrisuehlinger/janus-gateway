@@ -10,5 +10,5 @@
 # echo -n "hi2" >/dev/udp/3.84.134.247/5008
 # gst-launch-1.0 v4l2src device="/dev/video0" ! video/x-raw,width=640,height=480 ! videoconvert ! vp8enc target-bitrate=128000 ! rtpvp8pay ! udpsink host=janus.shattered.services port=6004
 gst-launch-1.0 v4l2src device="/dev/video0" ! video/x-raw,width=1280,height=720 ! videoconvert ! vp8enc target-bitrate=512000 ! rtpvp8pay ! udpsink host=janus.shattered.services port=6004
-
+gst-launch-1.0 -v kvideosrc do-stats=TRUE ! videoconvert ! dshowvideosink
 # gst-launch-1.0 pulsesrc ! audioconvert ! opusenc bitrate=64000 ! rtpopuspay ! udpsink host=janus.shattered.services port=6002
