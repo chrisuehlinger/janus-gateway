@@ -1,1 +1,4 @@
 *.mulaw binary
+*.sh     -crlf
+*.ac     -crlf
+*.am     -crlf

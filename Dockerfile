@@ -7,16 +7,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libssl-dev libsrtp-dev libsofia-sip-ua-dev libglib2.0-dev \
         libopus-dev libogg-dev libcurl4-openssl-dev liblua5.3-dev \
         libconfig-dev pkg-config gengetopt libtool automake git wget doxygen graphviz \
-        libavutil-dev libavcodec-dev libavformat-dev nginx gtk-doc-tools cmake && \
+        libavutil-dev libavcodec-dev libavformat-dev nginx gtk-doc-tools cmake \
+        python3 python3-pip python3-setuptools python3-wheel ninja-build && \
+    pip3 install meson && \
     git clone https://gitlab.freedesktop.org/libnice/libnice && \
     cd libnice && \
-    ./autogen.sh && \
-    ./configure --prefix=/usr && \
-    make -j$(nproc) && \
-    make install && \
+    meson --prefix=/usr build && \
+    ninja -C build && \
+    ninja -C build install && \
     cd .. && \
-    rm -fdr libnice && \
-    wget https://github.com/cisco/libsrtp/archive/v2.2.0.tar.gz && \
+    rm -fdr libnice
+RUN wget https://github.com/cisco/libsrtp/archive/v2.2.0.tar.gz && \
     tar xfv v2.2.0.tar.gz && \
     rm v2.2.0.tar.gz && \
     cd libsrtp-2.2.0 && \
@@ -46,7 +47,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /usr/src/janus
 
 COPY . .
-RUN sh autogen.sh && ./configure \
+RUN sh autogen.sh
+RUN ./configure \
     --enable-post-processing \
     --disable-rabbitmq \
     --disable-mqtt \
