@@ -28,7 +28,7 @@ RUN wget https://github.com/cisco/libsrtp/archive/v2.2.0.tar.gz && \
     rm -fdr libsrtp-2.2.0 && \
     git clone https://libwebsockets.org/repo/libwebsockets && \
     cd libwebsockets && \
-    git checkout v2.4-stable && \
+    git checkout v3.2-stable && \
     mkdir build && \
     cd build && \
     cmake -DLWS_MAX_SMP=1 -DLWS_IPV6=1 -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_C_FLAGS="-fpic" .. && \
