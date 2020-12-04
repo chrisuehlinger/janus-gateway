@@ -27,6 +27,6 @@ jobs:
           builder: ${{ steps.janus_builder.outputs.name }}
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64
+          platforms: linux/amd64, linux/arm64
           push: true
           tags: scatteredplayers/janus:multiplatform
