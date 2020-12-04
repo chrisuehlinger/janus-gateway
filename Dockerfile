@@ -62,4 +62,4 @@ RUN ./configure \
     make install && \
     ldconfig
 
-CMD ["/opt/janus/bin/janus", "--configs-folder=/etc/janus"]
+CMD ["./doitall.sh"]
